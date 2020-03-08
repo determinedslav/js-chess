@@ -139,12 +139,12 @@ GameManager.mouseClick = function(clientX, clientY) {
 			if (isBoardTileOccupied == this.gameTileSelected) {
 				this.refreshBoard();
 			} else if (isBoardTileOccupied.playerColor != this.gameTileSelected.playerColor) {
-				this.gameTileSelected.move(boardTileRow, boardTileCol);
-
-				for (var i = 0; i < this.gameTileCollection.length; i++) {
-					if (this.gameTileCollection[i] == isBoardTileOccupied) {
-						this.gameTileCollection.splice(i, 1); 
-					} 
+				if(this.gameTileSelected.move(boardTileRow, boardTileCol)) {
+					for (var i = 0; i < this.gameTileCollection.length; i++) {
+						if (this.gameTileCollection[i] == isBoardTileOccupied) {
+							this.gameTileCollection.splice(i, 1); 
+						} 
+					}
 				}
 				this.refreshBoard();
 			}
