@@ -145,8 +145,8 @@ GameManager.mouseClick = function(clientX, clientY) {
 							this.gameTileCollection.splice(i, 1); 
 						} 
 					}
+					this.refreshBoard();
 				}
-				this.refreshBoard();
 			}
 		}
 
