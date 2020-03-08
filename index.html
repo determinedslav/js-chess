@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chess</title>
+</head>
+<body>
+    <canvas width = "500" height = "500" id= "gameBoard" style = "border: 2px solid; display: inline-block;"></canvas>  
+	<div style = "display: inline-block; margin-left: 20px">
+		<div>
+			Legend:
+		</div>
+		<div style = "margin-top: 10px;">
+			<span style="background-color: gray; width: 20px; float: left;">&nbsp;</span> - Pawn
+		</div>
+		<div style = "margin-top: 10px;">
+			<span style="background-color: red; width: 20px; float: left;">&nbsp;</span> - Rook
+		</div>
+		<div style = "margin-top: 10px;">
+			<span style="background-color: lime; width: 20px; float: left;">&nbsp;</span> - Knight
+		</div>
+		<div style = "margin-top: 10px;">
+			<span style="background-color: blue; width: 20px; float: left;">&nbsp;</span> - Bishop
+		</div>
+		<div style = "margin-top: 10px;">
+			<span style="background-color: orange; width: 20px; float: left;">&nbsp;</span> - King
+		</div>
+		<div style = "margin-top: 10px;">
+			<span style="background-color: violet; width: 20px; float: left;">&nbsp;</span> - Queen
+		</div>
+	</div>
+	<script src="managers/GameManager.js"></script>
+	<script src="config/GameConfig.js"></script>
+	
+	<script src="sprites/BoardTile.js"></script>	
+	<script src="sprites/GameTile.js"></script>
+	
+	<script src="sprites/Rook.js"></script>
+	<script src="sprites/Knight.js"></script>
+	<script src="sprites/Bishop.js"></script>
+	<script src="sprites/King.js"></script>
+	<script src="sprites/Queen.js"></script>
+	<script src="sprites/Pawn.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
