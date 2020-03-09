@@ -9,6 +9,15 @@ var GameConfig = {
         GAME_TILE : 30
     },
 	
+	FIGURE_TYPES : {
+		PAWN : "pawn",
+		ROOK : "rook",
+		KNIGHT : "knight",
+		BISHOP : "bishop",
+		KING : "king",
+		QUEEN : "queen",
+	},
+
 	COLOR : {
 		PLAYER_WHITE : "#FFFFFF",
 		PLAYER_BLACK : "#000000",

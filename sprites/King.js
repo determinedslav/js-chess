@@ -2,7 +2,8 @@ var King = function(constructorConfig) {
 	this.row = constructorConfig.row;
 	this.col = constructorConfig.col;
 	this.playerColor = constructorConfig.playerColor;
-	this.gameTileColor = GameConfig.COLOR.KING;
+    this.gameTileColor = GameConfig.COLOR.KING;
+    this.type = GameConfig.FIGURE_TYPES.KING;
 	
 	this.gameTileReference = new GameTile({
         row : this.row,

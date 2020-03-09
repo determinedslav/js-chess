@@ -2,7 +2,8 @@ var Rook = function(constructorConfig) {
 	this.row = constructorConfig.row;
 	this.col = constructorConfig.col;
 	this.playerColor = constructorConfig.playerColor;
-	this.gameTileColor = GameConfig.COLOR.ROOK;
+    this.gameTileColor = GameConfig.COLOR.ROOK;
+    this.type = GameConfig.FIGURE_TYPES.ROOK;
 	
 	this.gameTileReference = new GameTile({
         row : this.row,

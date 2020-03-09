@@ -2,7 +2,8 @@ var Pawn = function(constructorConfig) {
 	this.row = constructorConfig.row;
 	this.col = constructorConfig.col;
 	this.playerColor = constructorConfig.playerColor;
-	this.gameTileColor = GameConfig.COLOR.PAWN;
+    this.gameTileColor = GameConfig.COLOR.PAWN;
+    this.type = GameConfig.FIGURE_TYPES.PAWN;
 	
 	this.gameTileReference = new GameTile({
         row : this.row,
