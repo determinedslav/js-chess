@@ -79,11 +79,23 @@ GameManager.loadGameTiles = function () {
 	
 	var bishop = new Bishop({
 		row: 2,
+		col: 0,
+		playerColor : GameConfig.COLOR.PLAYER_BLACK
+	})
+	this.gameTileCollection.push(bishop);
+	var bishop = new Bishop({
+		row: 2,
 		col: 9,
 		playerColor : GameConfig.COLOR.PLAYER_WHITE
 	})
 	this.gameTileCollection.push(bishop);
 	
+	var king = new King({
+		row: 3,
+		col: 0,
+		playerColor : GameConfig.COLOR.PLAYER_BLACK
+	})
+	this.gameTileCollection.push(king);
 	var king = new King({
 		row: 3,
 		col: 9,
@@ -93,17 +105,33 @@ GameManager.loadGameTiles = function () {
 	
 	var queen = new Queen({
 		row: 4,
+		col: 0,
+		playerColor : GameConfig.COLOR.PLAYER_BLACK
+	})
+	this.gameTileCollection.push(queen);
+	var queen = new Queen({
+		row: 4,
 		col: 9,
 		playerColor : GameConfig.COLOR.PLAYER_WHITE
 	})
 	this.gameTileCollection.push(queen);
 	
-	var pawn = new Pawn({
-		row: 0,
-		col: 8,
-		playerColor : GameConfig.COLOR.PLAYER_WHITE
-	})
-	this.gameTileCollection.push(pawn);
+	for (var i = 0; i < 5; i++) {
+		var pawn = new Pawn({
+			row: i,
+			col: 1,
+			playerColor : GameConfig.COLOR.PLAYER_BLACK
+		})
+		this.gameTileCollection.push(pawn);
+	}	
+	for (var i = 0; i < 5; i++) {
+		var pawn = new Pawn({
+			row: i,
+			col: 8,
+			playerColor : GameConfig.COLOR.PLAYER_WHITE
+		})
+		this.gameTileCollection.push(pawn);
+	}
 	//end test
 };
 
