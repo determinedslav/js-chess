@@ -173,7 +173,9 @@ GameManager.mouseClick = function(clientX, clientY) {
 					for (var i = 0; i < this.gameTileCollection.length; i++) {
 						if (this.gameTileCollection[i] == isBoardTileOccupied) {
 							this.gameTileCollection.splice(i, 1);
-							if (isBoardTileOccupied == ) 
+							if (isBoardTileOccupied.type == GameConfig.FIGURE_TYPES.KING) {
+								this.endGame(isBoardTileOccupied.playerColor);
+							} 
 						} 
 					}
 					this.gameTurn++;
@@ -225,10 +227,17 @@ GameManager.selectGameTile = function(x, y) {
 	}
 };
 
-GameManager.refreshBoard = function(){
-	this.gameTileSelected = undefined;	
-	this.loadBoard();
-	this.render(this.context);
+GameManager.endGame = function(player) {
+	switch(player){
+		case GameConfig.COLOR.PLAYER_BLACK:
+			console.log("Nazi Wins!");
+			break;
+		case GameConfig.COLOR.PLAYER_WHITE:
+			console.log("Nigga Wins!");
+			break;
+		default:
+			console.log("Someone won but who?")
+	}
 }
 
 GameManager.getCurrentPlayer = function(){
@@ -237,6 +246,12 @@ GameManager.getCurrentPlayer = function(){
 	} else {
 		return GameConfig.COLOR.PLAYER_BLACK;
 	}
+}
+
+GameManager.refreshBoard = function(){
+	this.gameTileSelected = undefined;	
+	this.loadBoard();
+	this.render(this.context);
 }
 
 GameManager.render = function() {
