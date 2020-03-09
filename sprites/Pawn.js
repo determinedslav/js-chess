@@ -12,10 +12,21 @@ var Pawn = function(constructorConfig) {
     });
 }
 
-Pawn.prototype.render = function(context) {
-    this.gameTileReference.render(context);
+Pawn.prototype.move = function(row, col) {
+    if ((this.row == row && this.col == col + 1 && this.playerColor == GameConfig.COLOR.PLAYER_WHITE)||
+        (this.row == row && this.col == col - 1 && this.playerColor == GameConfig.COLOR.PLAYER_BLACK)) {
+        this.row = row;
+        this.col = col; 
+        this.gameTileReference.move(this.row, this.col);
+        return true;
+    }
+    return false;
 };
 
 Pawn.prototype.contains = function(x, y) {
     return this.gameTileReference.contains(x, y);
+};
+
+Pawn.prototype.render = function(context) {
+    this.gameTileReference.render(context);
 };
