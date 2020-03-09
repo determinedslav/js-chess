@@ -21,15 +21,15 @@ GameManager.loadBoard = function () {
 	
 	for (var i = 0; i < GameConfig.BOARD_SIZE.BOARD_SIDE; i++){
 		for (var j = 0; j < 10; j++) {
-			var tileColorInstance = GameConfig.COLOR.BOARD_BLACK;
+			var tileColorInstance = GameConfig.COLOR.BOARD.BLACK;
 			if (i%2 == 1) {
 				if (j%2 == 1) {
-					tileColorInstance = GameConfig.COLOR.BOARD_WHITE;
+					tileColorInstance = GameConfig.COLOR.BOARD.WHITE;
 				}
 			} else if (j%2 == 0) {
-				tileColorInstance = GameConfig.COLOR.BOARD_WHITE;
+				tileColorInstance = GameConfig.COLOR.BOARD.WHITE;
 			} else {
-				tileColorInstance = GameConfig.COLOR.BOARD_BLACK;
+				tileColorInstance = GameConfig.COLOR.BOARD.BLACK;
 			}
 			var boardTileInstance = new BoardTile({
 			row: j,

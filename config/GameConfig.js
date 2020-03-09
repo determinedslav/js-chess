@@ -20,5 +20,12 @@ var GameConfig = {
 		KING : "#FF8800",
 		QUEEN : "#FF00FF",
 		PAWN : "#888888",
+		BOARD : {
+			WHITE : "#FFFEEE",
+			BLACK : "#111000",
+			SELECTED : "#FFCC11",
+			MOVE : "#FFCC11",
+			ENEMY : "#550000",
+		}
 	}
 };
