@@ -8,6 +8,7 @@ GameManager.init = function(canvas) {
 	this.gameTileCollection = [];
 	this.boardTileSelected = null;
 	this.gameTileSelected = null;
+	this.gameTurn = 0;
 	this.loadBoard();
 	this.loadGameTiles();
     this.render();
@@ -133,6 +134,7 @@ GameManager.mouseClick = function(clientX, clientY) {
 
 		if (isBoardTileOccupied == null) {
 			if (this.gameTileSelected.move(boardTileRow, boardTileCol)) {
+				this.gameTurn++;
 				this.refreshBoard();
 			}
 		} else {
@@ -145,6 +147,7 @@ GameManager.mouseClick = function(clientX, clientY) {
 							this.gameTileCollection.splice(i, 1); 
 						} 
 					}
+					this.gameTurn++;
 					this.refreshBoard();
 				}
 			}
@@ -152,12 +155,14 @@ GameManager.mouseClick = function(clientX, clientY) {
 
 	} else {
 		this.gameTileSelected = this.selectGameTile(x, y);
-		if (this.gameTileSelected != null) {
+		if (this.gameTileSelected != null && this.gameTileSelected.playerColor != this.getCurrentPlayer()) {
 			this.boardTileSelected = this.selectBoardTile(x, y);
 			this.boardTileSelected.color = "#FFCC11";
 			this.render(this.context);
 			console.log(this.gameTileSelected);	
-		}	
+		} else {
+			this.refreshBoard();
+		}
 	}
 };
 
@@ -195,6 +200,14 @@ GameManager.refreshBoard = function(){
 	this.gameTileSelected = undefined;	
 	this.loadBoard();
 	this.render(this.context);
+}
+
+GameManager.getCurrentPlayer = function(){
+	if (this.gameTurn % 2 != 0){
+		return GameConfig.COLOR.PLAYER_WHITE;
+	} else {
+		return GameConfig.COLOR.PLAYER_BLACK;
+	}
 }
 
 GameManager.render = function() {
