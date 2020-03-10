@@ -140,6 +140,8 @@ GameManager.mouseClick = function(clientX, clientY) {
 
 	console.log ("click");
 
+	var currentPlayer = this.getCurrentPlayer();
+
 	var x = clientX - 10;
 	var y = clientY - 10;
 
@@ -163,29 +165,42 @@ GameManager.mouseClick = function(clientX, clientY) {
 				this.refreshBoard();
 			} else if (boardTileOccupied.playerColor != this.gameTileSelected.playerColor) {
 				if(this.gameTileSelected.move(boardTileRow, boardTileCol)) {
-					for (var i = 0; i < this.gameTileCollection.length; i++) {
-						if (this.gameTileCollection[i] == boardTileOccupied) {
-							this.gameTileCollection.splice(i, 1);
-							if (boardTileOccupied.type == GameConfig.FIGURES.TYPES.KING) {
-								this.endGame(boardTileOccupied.playerColor);
-							} 
-						} 
-					}
-					this.gameTurn++;
-					this.refreshBoard();
+					this.takePiece(boardTileOccupied, currentPlayer);
 				}
 			}
 		}
-
 	} else {
 		this.gameTileSelected = this.selectGameTile(x, y);
-		if (this.gameTileSelected != null && this.gameTileSelected.playerColor == this.getCurrentPlayer()) {
+		if (this.gameTileSelected != null && this.gameTileSelected.playerColor == currentPlayer) {
 			this.boardTileSelected = this.selectBoardTile(x, y);
 			this.boardTileSelected.color = GameConfig.COLOR.BOARD.SELECTED;
 			this.render(this.context);
 			console.log(this.gameTileSelected);	
 		} else {
 			this.refreshBoard();
+		}
+	}
+};
+
+GameManager.getCurrentPlayer = function(){
+	if (this.gameTurn % 2 == 0){
+		return GameConfig.COLOR.PLAYER_WHITE;
+	} else {
+		return GameConfig.COLOR.PLAYER_BLACK;
+	}
+}
+
+GameManager.selectGameTile = function(x, y) {
+	for(var i = 0; i < this.gameTileCollection.length; i++) {
+		var tileX = this.gameTileCollection[i].gameTileReference.x;
+		var tileY = this.gameTileCollection[i].gameTileReference.y;
+		if (this.gameTileCollection[i].contains({
+			x : x,
+			y : y,
+			tileX : tileX,
+			tileY : tileY
+		})){
+			return this.gameTileCollection[i];
 		}
 	}
 };
@@ -205,23 +220,33 @@ GameManager.selectBoardTile = function(x, y) {
 	}
 };
 
-GameManager.selectGameTile = function(x, y) {
-	for(var i = 0; i < this.gameTileCollection.length; i++) {
-		var tileX = this.gameTileCollection[i].gameTileReference.x;
-		var tileY = this.gameTileCollection[i].gameTileReference.y;
-		if (this.gameTileCollection[i].contains({
-			x : x,
-			y : y,
-			tileX : tileX,
-			tileY : tileY
-		})){
-			return this.gameTileCollection[i];
-		}
+GameManager.takePiece = function(boardTileOccupied, currentPlayer){
+	for (var i = 0; i < this.gameTileCollection.length; i++) {
+		if (this.gameTileCollection[i] == boardTileOccupied) {
+			this.gameTileCollection.splice(i, 1);
+			this.calculateScore(boardTileOccupied.points, currentPlayer);
+			if (boardTileOccupied.type == GameConfig.FIGURES.TYPES.KING) {
+				this.endGame(boardTileOccupied.playerColor);
+			} 
+		} 
 	}
-};
+	this.gameTurn++;
+	this.refreshBoard();
+}
 
-GameManager.takePiece = function(){
-
+GameManager.calculateScore = function(points, currentPlayer){
+	switch(currentPlayer){
+		case GameConfig.COLOR.PLAYER_WHITE:
+			this.whitePlayerScore += points;
+			document.getElementById("whiteScore").innerHTML = this.whitePlayerScore;
+			break;
+		case GameConfig.COLOR.PLAYER_BLACK:
+			this.blackPlayerScore += points;
+			document.getElementById("blackScore").innerHTML = this.blackPlayerScore;
+			break;
+		default:
+			console.log("An error has occured");
+	}
 }
 
 GameManager.endGame = function(player) {
@@ -234,14 +259,6 @@ GameManager.endGame = function(player) {
 			break;
 		default:
 			console.log("Someone won but who?")
-	}
-}
-
-GameManager.getCurrentPlayer = function(){
-	if (this.gameTurn % 2 == 0){
-		return GameConfig.COLOR.PLAYER_WHITE;
-	} else {
-		return GameConfig.COLOR.PLAYER_BLACK;
 	}
 }
 
