@@ -9,6 +9,8 @@ GameManager.init = function(canvas) {
 	this.boardTileSelected = null;
 	this.gameTileSelected = null;
 	this.gameTurn = 0;
+	this.whitePlayerScore = 0;
+	this.blackPlayerScore = 0;
 	this.loadBoard();
 	this.loadGameTiles();
     this.render();
@@ -150,7 +152,7 @@ GameManager.mouseClick = function(clientX, clientY) {
 	var x = clientX - 10;
 	var y = clientY - 10;
 
-	var isBoardTileOccupied = null;
+	var boardTileOccupied = null;
 
 	if (this.gameTileSelected != null){
 
@@ -158,23 +160,23 @@ GameManager.mouseClick = function(clientX, clientY) {
 		var boardTileRow = this.boardTileSelected.row;
 		var boardTileCol = this.boardTileSelected.col;
 
-		isBoardTileOccupied = this.selectGameTile(x, y);
+		boardTileOccupied = this.selectGameTile(x, y);
 
-		if (isBoardTileOccupied == null) {
+		if (boardTileOccupied == null) {
 			if (this.gameTileSelected.move(boardTileRow, boardTileCol)) {
 				this.gameTurn++;
 				this.refreshBoard();
 			}
 		} else {
-			if (isBoardTileOccupied == this.gameTileSelected) {
+			if (boardTileOccupied == this.gameTileSelected) {
 				this.refreshBoard();
-			} else if (isBoardTileOccupied.playerColor != this.gameTileSelected.playerColor) {
+			} else if (boardTileOccupied.playerColor != this.gameTileSelected.playerColor) {
 				if(this.gameTileSelected.move(boardTileRow, boardTileCol)) {
 					for (var i = 0; i < this.gameTileCollection.length; i++) {
-						if (this.gameTileCollection[i] == isBoardTileOccupied) {
+						if (this.gameTileCollection[i] == boardTileOccupied) {
 							this.gameTileCollection.splice(i, 1);
-							if (isBoardTileOccupied.type == GameConfig.FIGURE_TYPES.KING) {
-								this.endGame(isBoardTileOccupied.playerColor);
+							if (boardTileOccupied.type == GameConfig.FIGURE_TYPES.KING) {
+								this.endGame(boardTileOccupied.playerColor);
 							} 
 						} 
 					}
@@ -186,7 +188,7 @@ GameManager.mouseClick = function(clientX, clientY) {
 
 	} else {
 		this.gameTileSelected = this.selectGameTile(x, y);
-		if (this.gameTileSelected != null && this.gameTileSelected.playerColor != this.getCurrentPlayer()) {
+		if (this.gameTileSelected != null && this.gameTileSelected.playerColor == this.getCurrentPlayer()) {
 			this.boardTileSelected = this.selectBoardTile(x, y);
 			this.boardTileSelected.color = "#FFCC11";
 			this.render(this.context);
@@ -227,6 +229,10 @@ GameManager.selectGameTile = function(x, y) {
 	}
 };
 
+GameManager.takePiece = function(){
+
+}
+
 GameManager.endGame = function(player) {
 	switch(player){
 		case GameConfig.COLOR.PLAYER_BLACK:
@@ -241,7 +247,7 @@ GameManager.endGame = function(player) {
 }
 
 GameManager.getCurrentPlayer = function(){
-	if (this.gameTurn % 2 != 0){
+	if (this.gameTurn % 2 == 0){
 		return GameConfig.COLOR.PLAYER_WHITE;
 	} else {
 		return GameConfig.COLOR.PLAYER_BLACK;
