@@ -17,7 +17,6 @@ GameManager.init = function(canvas) {
 };
 
 GameManager.loadBoard = function () {
-	console.log("loading board")
 	this.boardTileCollection = [];
 	var tileColorInstance = null;
 	
@@ -49,10 +48,7 @@ GameManager.renderBoard = function () {
 	};
 };
 
-GameManager.loadGameTiles = function () {
-	//test
-	console.log("loading tiles")
-	
+GameManager.loadGameTiles = function () {	
 	var rook = new Rook({
 		row: 0,
 		col: 0,
@@ -125,21 +121,16 @@ GameManager.loadGameTiles = function () {
 			playerColor : GameConfig.COLOR.PLAYER_BLACK
 		})
 		this.gameTileCollection.push(pawn);
-	}	
-	for (var i = 0; i < 5; i++) {
 		var pawn = new Pawn({
 			row: i,
 			col: 8,
 			playerColor : GameConfig.COLOR.PLAYER_WHITE
 		})
 		this.gameTileCollection.push(pawn);
-	}
-	//end test
+	}	
 };
 
 GameManager.renderGameTiles = function() {
-	console.log("rendering tiles")
-	console.log(this.gameTileCollection);
 	for (var i = 0; i < this.gameTileCollection.length; i++){
 		this.gameTileCollection[i].render(this.context);
 	};
@@ -175,7 +166,7 @@ GameManager.mouseClick = function(clientX, clientY) {
 					for (var i = 0; i < this.gameTileCollection.length; i++) {
 						if (this.gameTileCollection[i] == boardTileOccupied) {
 							this.gameTileCollection.splice(i, 1);
-							if (boardTileOccupied.type == GameConfig.FIGURE_TYPES.KING) {
+							if (boardTileOccupied.type == GameConfig.FIGURE.TYPES.KING) {
 								this.endGame(boardTileOccupied.playerColor);
 							} 
 						} 
@@ -190,7 +181,7 @@ GameManager.mouseClick = function(clientX, clientY) {
 		this.gameTileSelected = this.selectGameTile(x, y);
 		if (this.gameTileSelected != null && this.gameTileSelected.playerColor == this.getCurrentPlayer()) {
 			this.boardTileSelected = this.selectBoardTile(x, y);
-			this.boardTileSelected.color = "#FFCC11";
+			this.boardTileSelected.color = GameConfig.COLOR.BOARD.SELECTED;
 			this.render(this.context);
 			console.log(this.gameTileSelected);	
 		} else {

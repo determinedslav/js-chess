@@ -9,13 +9,21 @@ var GameConfig = {
         GAME_TILE : 30
     },
 	
-	FIGURE_TYPES : {
-		PAWN : "pawn",
-		ROOK : "rook",
-		KNIGHT : "knight",
-		BISHOP : "bishop",
-		KING : "king",
-		QUEEN : "queen",
+	FIGURES : {
+		TYPES : {
+			PAWN : "pawn",
+			ROOK : "rook",
+			KNIGHT : "knight",
+			BISHOP : "bishop",
+			KING : "king",
+			QUEEN : "queen",
+		},
+		POINTS : {
+			COMMON : 100,
+			SPECIAL : 250,
+			QUEEN : 500,
+			KING : 1000,
+		}
 	},
 
 	COLOR : {

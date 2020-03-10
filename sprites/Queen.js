@@ -3,7 +3,8 @@ var Queen = function(constructorConfig) {
 	this.col = constructorConfig.col;
 	this.playerColor = constructorConfig.playerColor;
     this.gameTileColor = GameConfig.COLOR.QUEEN;
-    this.type = GameConfig.FIGURE_TYPES.QUEEN;
+    this.type = GameConfig.FIGURE.TYPES.QUEEN;
+    this.points = GameConfig.FIGURES.POINTS.QUEEN;
 	
 	this.gameTileReference = new GameTile({
         row : this.row,

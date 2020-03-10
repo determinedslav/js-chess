@@ -3,7 +3,8 @@ var Bishop = function(constructorConfig) {
 	this.col = constructorConfig.col;
 	this.playerColor = constructorConfig.playerColor;
     this.gameTileColor = GameConfig.COLOR.BISHOP;
-    this.type = GameConfig.FIGURE_TYPES.BISHOP;
+    this.type = GameConfig.FIGURE.TYPES.BISHOP;
+    this.points = GameConfig.FIGURES.POINTS.SPECIAL;
 	
 	this.gameTileReference = new GameTile({
         row : this.row,
