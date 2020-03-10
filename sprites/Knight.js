@@ -3,7 +3,7 @@ var Knight = function(constructorConfig) {
 	this.col = constructorConfig.col;
 	this.playerColor = constructorConfig.playerColor;
     this.gameTileColor = GameConfig.COLOR.KNIGHT;
-    this.type = GameConfig.FIGURE.TYPES.KNIGHT;
+    this.type = GameConfig.FIGURES.TYPES.KNIGHT;
     this.points = GameConfig.FIGURES.POINTS.SPECIAL;
 	
 	this.gameTileReference = new GameTile({

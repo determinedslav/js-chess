@@ -166,7 +166,7 @@ GameManager.mouseClick = function(clientX, clientY) {
 					for (var i = 0; i < this.gameTileCollection.length; i++) {
 						if (this.gameTileCollection[i] == boardTileOccupied) {
 							this.gameTileCollection.splice(i, 1);
-							if (boardTileOccupied.type == GameConfig.FIGURE.TYPES.KING) {
+							if (boardTileOccupied.type == GameConfig.FIGURES.TYPES.KING) {
 								this.endGame(boardTileOccupied.playerColor);
 							} 
 						} 

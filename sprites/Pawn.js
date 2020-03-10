@@ -3,7 +3,7 @@ var Pawn = function(constructorConfig) {
 	this.col = constructorConfig.col;
 	this.playerColor = constructorConfig.playerColor;
     this.gameTileColor = GameConfig.COLOR.PAWN;
-    this.type = GameConfig.FIGURE.TYPES.PAWN;
+    this.type = GameConfig.FIGURES.TYPES.PAWN;
     this.points = GameConfig.FIGURES.POINTS.COMMON;
 	
 	this.gameTileReference = new GameTile({
