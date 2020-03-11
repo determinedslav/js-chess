@@ -41,7 +41,7 @@ var GameConfig = {
 			WHITE : "#FFFEEE",
 			BLACK : "#111000",
 			SELECTED : "#FFCC11",
-			MOVE : "#FFCC11",
+			MOVE : "#006600",
 			ENEMY : "#550000",
 		}
 	}

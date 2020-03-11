@@ -174,6 +174,10 @@ GameManager.mouseClick = function(clientX, clientY) {
 		if (this.gameTileSelected != null && this.gameTileSelected.playerColor == currentPlayer) {
 			this.boardTileSelected = this.selectBoardTile(x, y);
 			this.boardTileSelected.color = GameConfig.COLOR.BOARD.SELECTED;
+			console.log(this.boardTileCollection);
+			for(var i = 0; i < this.boardTileCollection.length; i++) {
+				this.boardTileCollection[i].color = this.gameTileSelected.showActions(this.boardTileCollection[i], this.gameTileCollection)
+			}
 			this.render(this.context);
 			console.log(this.gameTileSelected);	
 		} else {

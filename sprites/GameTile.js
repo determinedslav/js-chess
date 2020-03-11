@@ -16,6 +16,10 @@ GameTile.prototype.contains = function(constructorConfig) {
 		&& (constructorConfig.y - 10 <= constructorConfig.tileY + this.side));
 };
 
+GameTile.prototype.showActions = function(){
+	console.log("action")
+}
+
 GameTile.prototype.move = function(row, col){
 	this.row = row;
 	this.col = col; 
