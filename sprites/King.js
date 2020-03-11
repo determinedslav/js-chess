@@ -10,7 +10,9 @@ var King = function(constructorConfig) {
         row : this.row,
         col : this.col,
 		playerColor : this.playerColor,
-        gameTileColor : this.gameTileColor
+        gameTileColor : this.gameTileColor,
+        type : this.type,
+        points : this.points,
     });
 }
 
