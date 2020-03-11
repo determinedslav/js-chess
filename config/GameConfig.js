@@ -38,8 +38,8 @@ var GameConfig = {
 		QUEEN : "#FF00FF",
 		PAWN : "#888888",
 		BOARD : {
-			WHITE : "#FFFEEE",
-			BLACK : "#111000",
+			WHITE : "#DDDCCC",
+			BLACK : "#333222",
 			SELECTED : "#FFCC11",
 			MOVE : "#006600",
 			ENEMY : "#550000",
