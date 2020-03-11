@@ -5,8 +5,9 @@ var GameTile = function(constructorConfig) {
 	this.y;
 	this.playerColor = constructorConfig.playerColor;
 	this.gameTileColor = constructorConfig.gameTileColor;
+	this.type = constructorConfig.type;
+	this.points = constructorConfig.points;
 	this.side = GameConfig.TILE_SIZE.GAME_TILE;
-	this.isSelected = false;
 }
 
 GameTile.prototype.contains = function(constructorConfig) {
@@ -16,13 +17,26 @@ GameTile.prototype.contains = function(constructorConfig) {
 		&& (constructorConfig.y - 10 <= constructorConfig.tileY + this.side));
 };
 
-GameTile.prototype.showActions = function(){
-	console.log("action")
+GameTile.prototype.showActions = function(boardTile, gameTileCollection){
+	for(var i = 0; i < gameTileCollection.length; i++) {
+		if (boardTile.row == gameTileCollection[i].row && boardTile.col == gameTileCollection[i].col){
+			if (this.playerColor != gameTileCollection[i].playerColor){
+				return GameConfig.COLOR.BOARD.ENEMY;
+			} else {
+				return boardTile.color;
+			}
+		}
+	}
+	return GameConfig.COLOR.BOARD.MOVE;
 }
 
-GameTile.prototype.move = function(row, col){
-	this.row = row;
-	this.col = col; 
+GameTile.prototype.move = function(boardTile){
+	if (boardTile.color == GameConfig.COLOR.BOARD.MOVE || boardTile.color == GameConfig.COLOR.BOARD.ENEMY) {
+        this.row = boardTile.row;
+        this.col = boardTile.col;
+        return true;
+    }
+    return false; 
 }
 
 GameTile.prototype.render = function(context) {

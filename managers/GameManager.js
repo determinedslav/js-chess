@@ -156,7 +156,7 @@ GameManager.mouseClick = function(clientX, clientY) {
 		boardTileOccupied = this.selectGameTile(x, y);
 
 		if (boardTileOccupied == null) {
-			if (this.gameTileSelected.move(boardTileRow, boardTileCol)) {
+			if (this.gameTileSelected.move(this.boardTileSelected)) {
 				this.gameTurn++;
 				this.refreshBoard();
 			}
@@ -164,7 +164,7 @@ GameManager.mouseClick = function(clientX, clientY) {
 			if (boardTileOccupied == this.gameTileSelected) {
 				this.refreshBoard();
 			} else if (boardTileOccupied.playerColor != this.gameTileSelected.playerColor) {
-				if(this.gameTileSelected.move(boardTileRow, boardTileCol)) {
+				if(this.gameTileSelected.move(this.boardTileSelected)) {
 					this.takePiece(boardTileOccupied, currentPlayer);
 				}
 			}
@@ -174,7 +174,6 @@ GameManager.mouseClick = function(clientX, clientY) {
 		if (this.gameTileSelected != null && this.gameTileSelected.playerColor == currentPlayer) {
 			this.boardTileSelected = this.selectBoardTile(x, y);
 			this.boardTileSelected.color = GameConfig.COLOR.BOARD.SELECTED;
-			console.log(this.boardTileCollection);
 			for(var i = 0; i < this.boardTileCollection.length; i++) {
 				this.boardTileCollection[i].color = this.gameTileSelected.showActions(this.boardTileCollection[i], this.gameTileCollection)
 			}
@@ -234,6 +233,9 @@ GameManager.takePiece = function(boardTileOccupied, currentPlayer){
 			} 
 		} 
 	}
+	if (this.gameTileCollection.length == 2) {
+		this.endGame("Draw");
+	}
 	this.gameTurn++;
 	this.refreshBoard();
 }
@@ -261,8 +263,11 @@ GameManager.endGame = function(player) {
 		case GameConfig.COLOR.PLAYER_WHITE:
 			console.log("Nigga Wins!");
 			break;
+		case "Draw": 
+			console.log("It's a draw");
+			break;
 		default:
-			console.log("Someone won but who?")
+			console.log("Someonething happened")
 	}
 }
 
