@@ -178,7 +178,6 @@ GameManager.mouseClick = function(clientX, clientY) {
 				this.boardTileCollection[i].color = this.gameTileSelected.showActions(this.boardTileCollection[i], this.gameTileCollection)
 			}
 			this.render(this.context);
-			console.log(this.gameTileSelected);	
 		} else {
 			this.refreshBoard();
 		}
