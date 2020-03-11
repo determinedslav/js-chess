@@ -16,15 +16,40 @@ var Pawn = function(constructorConfig) {
     });
 }
 
-Pawn.prototype.move = function(row, col) {
-    if ((this.row == row && this.col == col + 1 && this.playerColor == GameConfig.COLOR.PLAYER_WHITE)||
-        (this.row == row && this.col == col - 1 && this.playerColor == GameConfig.COLOR.PLAYER_BLACK)) {
-        this.row = row;
-        this.col = col; 
-        this.gameTileReference.move(this.row, this.col);
-        return true;
+Pawn.prototype.showActions = function(boardTile, gameTileCollection){
+    if ((this.row == boardTile.row && this.col == boardTile.col + 1 && this.playerColor == GameConfig.COLOR.PLAYER_WHITE)||
+        (this.row == boardTile.row && this.col == boardTile.col - 1 && this.playerColor == GameConfig.COLOR.PLAYER_BLACK)) {
+        for(var i = 0; i < gameTileCollection.length; i++) {
+            if (boardTile.row == gameTileCollection[i].row && boardTile.col == gameTileCollection[i].col){
+                return boardTile.color;
+            }
+        }
+        return GameConfig.COLOR.BOARD.MOVE;
+    } else if   ((this.row + 1 == boardTile.row && this.col == boardTile.col + 1 && this.playerColor == GameConfig.COLOR.PLAYER_WHITE)||
+                (this.row - 1 == boardTile.row && this.col == boardTile.col + 1 && this.playerColor == GameConfig.COLOR.PLAYER_WHITE)||
+                (this.row + 1 == boardTile.row && this.col == boardTile.col - 1 && this.playerColor == GameConfig.COLOR.PLAYER_BLACK)||
+                (this.row - 1 == boardTile.row && this.col == boardTile.col - 1 && this.playerColor == GameConfig.COLOR.PLAYER_BLACK)) {
+        for(var i = 0; i < gameTileCollection.length; i++) {
+            if (boardTile.row == gameTileCollection[i].row && boardTile.col == gameTileCollection[i].col){
+                if (this.playerColor != gameTileCollection[i].playerColor){
+                    return GameConfig.COLOR.BOARD.ENEMY;
+                } else {
+                    return boardTile.color;
+                }
+            }
+        }
+        return boardTile.color;
+    } else {
+        return boardTile.color;
     }
-    return false;
+};
+
+Pawn.prototype.move = function(boardTile) {
+    if (this.gameTileReference.move(boardTile)) {
+        this.row = this.gameTileReference.row;
+        this.col = this.gameTileReference.col;
+        return true;
+    } 
 };
 
 Pawn.prototype.contains = function(x, y) {

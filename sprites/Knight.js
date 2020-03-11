@@ -20,21 +20,28 @@ Knight.prototype.contains = function(x, y) {
     return this.gameTileReference.contains(x, y);
 };
 
-Knight.prototype.move = function(row, col) {
-    if ((this.row == row - 1 && this.col == col - 2) ||
-        (this.row == row + 1 && this.col == col - 2) ||
-        (this.row == row - 1 && this.col == col + 2) ||
-        (this.row == row + 1 && this.col == col + 2) ||
-        (this.row == row - 2 && this.col == col - 1) ||
-        (this.row == row + 2 && this.col == col - 1) ||
-        (this.row == row - 2 && this.col == col + 1) ||
-        (this.row == row + 2 && this.col == col + 1))  {
-        this.row = row;
-        this.col = col; 
-        this.gameTileReference.move(this.row, this.col);
+Knight.prototype.showActions = function(boardTile, gameTileCollection){
+    if ((this.row == boardTile.row - 1 && this.col == boardTile.col - 2) ||
+        (this.row == boardTile.row + 1 && this.col == boardTile.col - 2) ||
+        (this.row == boardTile.row - 1 && this.col == boardTile.col + 2) ||
+        (this.row == boardTile.row + 1 && this.col == boardTile.col + 2) ||
+        (this.row == boardTile.row - 2 && this.col == boardTile.col - 1) ||
+        (this.row == boardTile.row + 2 && this.col == boardTile.col - 1) ||
+        (this.row == boardTile.row - 2 && this.col == boardTile.col + 1) ||
+        (this.row == boardTile.row + 2 && this.col == boardTile.col + 1))  {
+        return this.gameTileReference.showActions(boardTile, gameTileCollection)
+    } else {
+        return boardTile.color;
+    }
+};
+
+Knight.prototype.move = function(boardTile) {
+    if (this.gameTileReference.move(boardTile)) {
+        this.row = this.gameTileReference.row;
+        this.col = this.gameTileReference.col;
         return true;
     }
-    return false;
+    
 };
 
 Knight.prototype.render = function(context) {

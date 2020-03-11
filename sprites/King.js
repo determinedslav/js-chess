@@ -16,17 +16,23 @@ var King = function(constructorConfig) {
     });
 }
 
-King.prototype.move = function(row, col) {
-    if ((this.row == row + 1 && this.col == col)||
-        (this.row == row - 1 && this.col == col)||
-        (this.row == row && this.col == col + 1)||
-        (this.row == row && this.col == col - 1)) {
-        this.row = row;
-        this.col = col; 
-        this.gameTileReference.move(this.row, this.col);
-        return true;
+King.prototype.showActions = function(boardTile, gameTileCollection){
+    if ((this.row == boardTile.row + 1 && this.col == boardTile.col)||
+        (this.row == boardTile.row - 1 && this.col == boardTile.col)||
+        (this.row == boardTile.row && this.col == boardTile.col + 1)||
+        (this.row == boardTile.row && this.col == boardTile.col - 1)) {
+        return this.gameTileReference.showActions(boardTile, gameTileCollection)
+    } else {
+        return boardTile.color;
     }
-    return false;
+};
+
+King.prototype.move = function(boardTile) {
+    if (this.gameTileReference.move(boardTile)) {
+        this.row = this.gameTileReference.row;
+        this.col = this.gameTileReference.col;
+        return true;
+    } 
 };
 
 King.prototype.contains = function(x, y) {
