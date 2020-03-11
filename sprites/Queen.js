@@ -16,6 +16,25 @@ var Queen = function(constructorConfig) {
     });
 }
 
+Queen.prototype.showActions = function(boardTile, gameTileCollection){
+    if ((this.row - this.col) == (boardTile.row - boardTile.col) || 
+        (this.row + this.col) == (boardTile.row + boardTile.col) || 
+        this.row == boardTile.row || this.col == boardTile.col) {
+        return this.gameTileReference.showActions(boardTile, gameTileCollection)
+    } else {
+        return boardTile.color;
+    }
+};
+
+Queen.prototype.move = function(boardTile) {
+    if (this.gameTileReference.move(boardTile)) {
+        this.row = this.gameTileReference.row;
+        this.col = this.gameTileReference.col;
+        return true;
+    }
+    
+};
+
 Queen.prototype.render = function(context) {
     this.gameTileReference.render(context);
 };

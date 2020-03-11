@@ -16,6 +16,23 @@ var Bishop = function(constructorConfig) {
     });
 }
 
+Bishop.prototype.showActions = function(boardTile, gameTileCollection){
+    if ((this.row - this.col) == (boardTile.row - boardTile.col)||(this.row + this.col) == (boardTile.row + boardTile.col)) {
+        return this.gameTileReference.showActions(boardTile, gameTileCollection)
+    } else {
+        return boardTile.color;
+    }
+};
+
+Bishop.prototype.move = function(boardTile) {
+    if (this.gameTileReference.move(boardTile)) {
+        this.row = this.gameTileReference.row;
+        this.col = this.gameTileReference.col;
+        return true;
+    }
+    
+};
+
 Bishop.prototype.render = function(context) {
     this.gameTileReference.render(context);
 };
