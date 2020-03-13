@@ -7,15 +7,20 @@
 <body>
     <canvas width = "500" height = "500" id= "gameBoard" style = "border: 2px solid; display: inline-block;"></canvas>  
 	<div style = "display: inline-block; margin-left: 20px">
-		<div style = "margin-bottom: 250px;">
+		<div style = "margin-bottom: 75px;">
 			<div style = "margin-bottom: 25px;">
 				Score:
 			</div>
 			<div style = "display: inline-block">
-				White: <span id="whiteScore">0</span>
+				White: <span id="scoreWhite">0</span>
 			</div>
 			<div style = "display: inline-block; margin-left: 50px;">
-				Black: <span id="blackScore">0</span>
+				Black: <span id="scoreBlack">0</span>
+			</div>
+		</div>
+		<div style = "margin-bottom: 150px;">
+			<div>
+				<span id = "winnerPlayer" style = "font-weight: bold;">&nbsp;</span><span id = "currentPlayerContainer"><span id = "currentPlayer" style = "font-weight: bold;">WHITE</span> player turn</span>
 			</div>
 		</div>
 		<div>

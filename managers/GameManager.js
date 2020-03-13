@@ -188,8 +188,10 @@ GameManager.mouseClick = function(clientX, clientY) {
 GameManager.getCurrentPlayer = function(){
 	if (this.gameTurn % 2 == 0){
 		this.currentPlayer = GameConfig.COLOR.PLAYER_WHITE;
+		document.getElementById("currentPlayer").innerHTML = "WHITE";
 	} else {
 		this.currentPlayer = GameConfig.COLOR.PLAYER_BLACK;
+		document.getElementById("currentPlayer").innerHTML = "BLACK";
 	}
 }
 
@@ -243,11 +245,11 @@ GameManager.calculateScore = function(points, currentPlayer){
 	switch(currentPlayer){
 		case GameConfig.COLOR.PLAYER_WHITE:
 			this.whitePlayerScore += points;
-			document.getElementById("whiteScore").innerHTML = this.whitePlayerScore;
+			document.getElementById("scoreWhite").innerHTML = this.whitePlayerScore;
 			break;
 		case GameConfig.COLOR.PLAYER_BLACK:
 			this.blackPlayerScore += points;
-			document.getElementById("blackScore").innerHTML = this.blackPlayerScore;
+			document.getElementById("scoreBlack").innerHTML = this.blackPlayerScore;
 			break;
 		default:
 			console.log("An error has occured");
@@ -256,7 +258,6 @@ GameManager.calculateScore = function(points, currentPlayer){
 
 GameManager.endTurn = function() {
 	this.gameTurn++;
-	console.log(this.gameTurn);
 	this.getCurrentPlayer();
 	this.refreshBoard();
 }
@@ -264,13 +265,16 @@ GameManager.endTurn = function() {
 GameManager.endGame = function(player) {
 	switch(player){
 		case GameConfig.COLOR.PLAYER_BLACK:
-			console.log("Nazi Wins!");
+			document.getElementById("winnerPlayer").innerHTML = "White player wins";
+			document.getElementById("currentPlayerContainer").style.display = "none";
 			break;
 		case GameConfig.COLOR.PLAYER_WHITE:
-			console.log("Nigga Wins!");
+			document.getElementById("winnerPlayer").innerHTML = "Black player wins";
+			document.getElementById("currentPlayerContainer").style.display = "none";
 			break;
 		case "Draw": 
-			console.log("It's a draw");
+			document.getElementById("winnerPlayer").innerHTML = "Draw";
+			document.getElementById("currentPlayerContainer").style.display = "none";
 			break;
 		default:
 			console.log("Someonething happened")
