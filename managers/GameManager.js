@@ -3,7 +3,9 @@ var GameManager = {};
 GameManager.init = function(canvas) {
 
     this.canvas = canvas;
-    this.context = this.canvas.getContext('2d');
+	this.context = this.canvas.getContext('2d');
+	this.hasGameEnded = false;
+	this.currentPlayer = GameConfig.COLOR.PLAYER_WHITE;
 	this.boardTileCollection = [];
 	this.gameTileCollection = [];
 	this.boardTileSelected = null;
@@ -140,7 +142,9 @@ GameManager.mouseClick = function(clientX, clientY) {
 
 	console.log ("click");
 
-	var currentPlayer = this.getCurrentPlayer();
+	if (this.hasGameEnded) {
+		return;
+	}
 
 	var x = clientX - 10;
 	var y = clientY - 10;
@@ -150,28 +154,25 @@ GameManager.mouseClick = function(clientX, clientY) {
 	if (this.gameTileSelected != null){
 
 		this.boardTileSelected = this.selectBoardTile(x, y);
-		var boardTileRow = this.boardTileSelected.row;
-		var boardTileCol = this.boardTileSelected.col;
 
 		boardTileOccupied = this.selectGameTile(x, y);
 
 		if (boardTileOccupied == null) {
 			if (this.gameTileSelected.move(this.boardTileSelected)) {
-				this.gameTurn++;
-				this.refreshBoard();
+				this.endTurn();
 			}
 		} else {
 			if (boardTileOccupied == this.gameTileSelected) {
 				this.refreshBoard();
 			} else if (boardTileOccupied.playerColor != this.gameTileSelected.playerColor) {
 				if(this.gameTileSelected.move(this.boardTileSelected)) {
-					this.takePiece(boardTileOccupied, currentPlayer);
+					this.takePiece(boardTileOccupied, this.currentPlayer);
 				}
 			}
 		}
 	} else {
 		this.gameTileSelected = this.selectGameTile(x, y);
-		if (this.gameTileSelected != null && this.gameTileSelected.playerColor == currentPlayer) {
+		if (this.gameTileSelected != null && this.gameTileSelected.playerColor == this.currentPlayer) {
 			this.boardTileSelected = this.selectBoardTile(x, y);
 			this.boardTileSelected.color = GameConfig.COLOR.BOARD.SELECTED;
 			for(var i = 0; i < this.boardTileCollection.length; i++) {
@@ -186,9 +187,9 @@ GameManager.mouseClick = function(clientX, clientY) {
 
 GameManager.getCurrentPlayer = function(){
 	if (this.gameTurn % 2 == 0){
-		return GameConfig.COLOR.PLAYER_WHITE;
+		this.currentPlayer = GameConfig.COLOR.PLAYER_WHITE;
 	} else {
-		return GameConfig.COLOR.PLAYER_BLACK;
+		this.currentPlayer = GameConfig.COLOR.PLAYER_BLACK;
 	}
 }
 
@@ -235,8 +236,7 @@ GameManager.takePiece = function(boardTileOccupied, currentPlayer){
 	if (this.gameTileCollection.length == 2) {
 		this.endGame("Draw");
 	}
-	this.gameTurn++;
-	this.refreshBoard();
+	this.endTurn();
 }
 
 GameManager.calculateScore = function(points, currentPlayer){
@@ -254,6 +254,13 @@ GameManager.calculateScore = function(points, currentPlayer){
 	}
 }
 
+GameManager.endTurn = function() {
+	this.gameTurn++;
+	console.log(this.gameTurn);
+	this.getCurrentPlayer();
+	this.refreshBoard();
+}
+
 GameManager.endGame = function(player) {
 	switch(player){
 		case GameConfig.COLOR.PLAYER_BLACK:
@@ -268,6 +275,7 @@ GameManager.endGame = function(player) {
 		default:
 			console.log("Someonething happened")
 	}
+	this.hasGameEnded = true;
 }
 
 GameManager.refreshBoard = function(){
